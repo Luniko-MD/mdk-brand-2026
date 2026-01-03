@@ -1,3 +1,6 @@
+import { SEO } from "@/components/SEO";
+import { LocalBusinessSchema } from "@/components/LocalBusinessSchema";
+import GoogleReviews from "@/components/GoogleReviews";
 import { Link } from "react-router-dom";
 import { ArrowRight, Printer, Globe, CheckCircle, Users, Award, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -46,13 +49,20 @@ const Index = () => {
     },
     {
       icon: Award,
-      title: "BEE Level 1",
-      description: "Proudly certified, supporting transformation in South Africa.",
+      title: "Trusted Digital Services",
+      description: "We operate digitally, supporting transformation in South  businesses.",
     },
   ];
 
   return (
     <>
+      {/* SEO & Schema - Added for Google visibility */}
+      <SEO 
+        title="Home" 
+        description="MDK Brand offers professional printing services and web development in Cape Town. DTF, Sublimation, and Digital Solutions."
+      />
+      <LocalBusinessSchema />
+
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-background to-primary/10">
         <div className="container-mdk section-padding">
@@ -60,7 +70,7 @@ const Index = () => {
             <div className="space-y-8 animate-fade-in">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-medium">
                 <Award className="w-4 h-4" />
-                BEE Level 1 Certified
+                MDK is a trusted digital brand
               </div>
               <h1 className="heading-hero text-balance">
                 Elevate Your Brand with{" "}
@@ -170,6 +180,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* NEW: Google Reviews Section */}
+      <GoogleReviews />
 
       {/* CTA Section */}
       <section className="section-padding bg-primary text-primary-foreground">

@@ -18,7 +18,7 @@ const Footer = () => {
             </p>
             <div className="flex items-center gap-2 text-sm">
               <Award className="w-4 h-4 text-primary" />
-              <span>BEE Level 1 Certified</span>
+              <span>Trusted Digital Services</span>
             </div>
           </div>
 

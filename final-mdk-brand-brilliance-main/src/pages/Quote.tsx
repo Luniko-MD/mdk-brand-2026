@@ -7,10 +7,11 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import { SEO } from "@/components/SEO";
+import emailjs from "@emailjs/browser";
+
 const Quote = () => {
-  const {
-    toast
-  } = useToast();
+  const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -19,60 +20,71 @@ const Quote = () => {
     service: "",
     description: ""
   });
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    toast({
-      title: "Quote Request Sent!",
-      description: "We'll get back to you within 24 hours."
-    });
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      service: "",
-      description: ""
-    });
-    setIsSubmitting(false);
+    try {
+      await emailjs.send(
+        "service_9a9ei2b",
+        "template_iv3r2nn",
+        {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone || "Not provided",
+          subject: formData.service,
+          message: formData.description,
+        },
+        "iubpB5LJlGzc4Hpe7"
+      );
+
+      toast({
+        title: "Quote Request Sent!",
+        description: "We'll get back to you within 24 hours."
+      });
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        service: "",
+        description: ""
+      });
+    } catch (error) {
+      console.error("Email error:", error);
+      toast({
+        title: "Something went wrong",
+        description: "Please try again or contact us via WhatsApp.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
-  const services = [{
-    value: "dtf",
-    label: "DTF Transfers"
-  }, {
-    value: "sublimation",
-    label: "Sublimation Printing"
-  }, {
-    value: "business-cards",
-    label: "Business Cards"
-  }, {
-    value: "banners",
-    label: "Banners & Signage"
-  }, {
-    value: "flyers",
-    label: "Flyers & Brochures"
-  }, {
-    value: "packaging",
-    label: "Custom Packaging"
-  }, {
-    value: "web-design",
-    label: "Web Design"
-  }, {
-    value: "web-development",
-    label: "Web Development"
-  }, {
-    value: "seo",
-    label: "SEO Optimization"
-  }, {
-    value: "hosting",
-    label: "Web Hosting"
-  }, {
-    value: "other",
-    label: "Other"
-  }];
-  return <>
+
+  const services = [
+    { value: "dtf", label: "DTF Transfers" },
+    { value: "sublimation", label: "Sublimation Printing" },
+    { value: "business-cards", label: "Business Cards" },
+    { value: "banners", label: "Banners & Signage" },
+    { value: "flyers", label: "Flyers & Brochures" },
+    { value: "packaging", label: "Custom Packaging" },
+    { value: "web-design", label: "Web Design" },
+    { value: "web-development", label: "Web Development" },
+    { value: "seo", label: "SEO Optimization" },
+    { value: "hosting", label: "Web Hosting" },
+    { value: "other", label: "Other" }
+  ];
+
+  return (
+    <>
+      <SEO
+        title="Get a Free Quote | Printing & Web Services"
+        description="Request a free quote for printing or web development services from MDK Brand. DTF transfers, business cards, banners, website design, and more. Fast response within 24 hours."
+        keywords="free printing quote Cape Town, web design quote South Africa, DTF printing quote, business cards quote, banner printing price, website design cost"
+        canonicalUrl="/quote"
+      />
+
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-background to-primary/10">
         <div className="container-mdk section-padding">
@@ -99,41 +111,53 @@ const Quote = () => {
                   <div className="grid sm:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <Label htmlFor="name">Full Name *</Label>
-                      <Input id="name" required placeholder="John Doe" value={formData.name} onChange={e => setFormData({
-                      ...formData,
-                      name: e.target.value
-                    })} />
+                      <Input
+                        id="name"
+                        required
+                        placeholder="John Doe"
+                        value={formData.name}
+                        onChange={e => setFormData({ ...formData, name: e.target.value })}
+                      />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="email">Email Address *</Label>
-                      <Input id="email" type="email" required placeholder="john@example.com" value={formData.email} onChange={e => setFormData({
-                      ...formData,
-                      email: e.target.value
-                    })} />
+                      <Input
+                        id="email"
+                        type="email"
+                        required
+                        placeholder="john@example.com"
+                        value={formData.email}
+                        onChange={e => setFormData({ ...formData, email: e.target.value })}
+                      />
                     </div>
                   </div>
 
                   <div className="grid sm:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <Label htmlFor="phone">Phone Number</Label>
-                      <Input id="phone" type="tel" placeholder="079 069 9806" value={formData.phone} onChange={e => setFormData({
-                      ...formData,
-                      phone: e.target.value
-                    })} />
+                      <Input
+                        id="phone"
+                        type="tel"
+                        placeholder="079 069 9806"
+                        value={formData.phone}
+                        onChange={e => setFormData({ ...formData, phone: e.target.value })}
+                      />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="service">Service Required *</Label>
-                      <Select value={formData.service} onValueChange={value => setFormData({
-                      ...formData,
-                      service: value
-                    })}>
+                      <Select
+                        value={formData.service}
+                        onValueChange={value => setFormData({ ...formData, service: value })}
+                      >
                         <SelectTrigger>
                           <SelectValue placeholder="Select a service" />
                         </SelectTrigger>
                         <SelectContent>
-                          {services.map(service => <SelectItem key={service.value} value={service.value}>
+                          {services.map(service => (
+                            <SelectItem key={service.value} value={service.value}>
                               {service.label}
-                            </SelectItem>)}
+                            </SelectItem>
+                          ))}
                         </SelectContent>
                       </Select>
                     </div>
@@ -141,10 +165,14 @@ const Quote = () => {
 
                   <div className="space-y-2">
                     <Label htmlFor="description">Project Details *</Label>
-                    <Textarea id="description" required rows={5} placeholder="Tell us about your project, quantities, deadlines, and any specific requirements..." value={formData.description} onChange={e => setFormData({
-                    ...formData,
-                    description: e.target.value
-                  })} />
+                    <Textarea
+                      id="description"
+                      required
+                      rows={5}
+                      placeholder="Tell us about your project, quantities, deadlines, and any specific requirements..."
+                      value={formData.description}
+                      onChange={e => setFormData({ ...formData, description: e.target.value })}
+                    />
                   </div>
 
                   <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
@@ -195,16 +223,20 @@ const Quote = () => {
               <div className="bg-muted/50 rounded-2xl p-8">
                 <h3 className="heading-card mb-6">What to Expect</h3>
                 <div className="space-y-4">
-                  {["Free, no-obligation quote", "Response within 24 hours", "Detailed pricing breakdown", "Timeline estimate", "Expert consultation"].map((item, index) => <div key={index} className="flex items-center gap-3">
+                  {["Free, no-obligation quote", "Response within 24 hours", "Detailed pricing breakdown", "Timeline estimate", "Expert consultation"].map((item, index) => (
+                    <div key={index} className="flex items-center gap-3">
                       <CheckCircle className="w-5 h-5 text-mdk-green flex-shrink-0" />
                       <span className="text-sm">{item}</span>
-                    </div>)}
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
-    </>;
+    </>
+  );
 };
+
 export default Quote;

@@ -5,7 +5,7 @@ export const LocalBusinessSchema = () => {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "MDK Brand",
-    "image": "https://mdkbrand.com/og-image.png",
+    "image": "https://mdkfastprint.com/og-image.png",
     "description": "Professional printing services and web development solutions in Cape Town. DTF transfers, sublimation, and custom websites.",
     "address": {
       "@type": "PostalAddress",
@@ -18,8 +18,8 @@ export const LocalBusinessSchema = () => {
       "latitude": "-33.9249", // You might want to update these specific coords
       "longitude": "18.4241"
     },
-    "url": "https://mdkbrand.com",
-    "telephone": "+27 12 345 6789", // UPDATE THIS WITH REAL NUMBER
+    "url": "https://mdkfastprint.com",
+    "telephone": "+27691623990", // UPDATE THIS WITH REAL NUMBER
     "priceRange": "$$"
   };
 

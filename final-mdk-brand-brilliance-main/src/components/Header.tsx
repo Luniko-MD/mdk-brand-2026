@@ -41,7 +41,7 @@ const Header = () => {
           </div>
           <div className="flex items-center gap-2">
             <Award className="w-4 h-4" />
-            <span>BEE Level 1 - Certified</span>
+            <span>Trusted Digital Services</span>
           </div>
         </div>
       </div>
