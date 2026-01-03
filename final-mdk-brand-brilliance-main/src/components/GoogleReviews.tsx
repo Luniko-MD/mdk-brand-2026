@@ -1,5 +1,4 @@
 import { CheckCircle, Star } from "lucide-react";
-
 import { Card, CardContent } from "@/components/ui/card";
 
 const GoogleReviews = () => {
@@ -16,7 +15,7 @@ const GoogleReviews = () => {
       name: "Michael Peterson",
       date: "1 month ago",
       rating: 5,
-      text: "Incredible web design services. They built our e-commerce site from scratch and our sales have doubled. Highly recommend the team!",
+      text: "Incredible web design services. They built our beautiful website site from scratch and our sales have doubled. Highly recommend the team!",
       initial: "M"
     },
     {
@@ -32,9 +31,13 @@ const GoogleReviews = () => {
     <section className="section-padding bg-muted/30">
       <div className="container-mdk">
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-sm font-medium mb-4">
-            <Star className="w-4 h-4 fill-blue-700" />
-            <span>Google Reviews</span>
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <img 
+              src="/images/google-logo.png" 
+              alt="Google" 
+              className="h-8 w-auto"
+            />
+            <span className="text-xl font-medium text-muted-foreground">Reviews</span>
           </div>
           <h2 className="heading-section mb-4">What Our Clients Say</h2>
           <p className="text-muted-foreground">
